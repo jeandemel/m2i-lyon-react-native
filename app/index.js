@@ -14,6 +14,8 @@ export default function index() {
 
             <Button title="Todo List" 
              onPress={() => router.push('/todo')} />
+             <Button title="Gesture" 
+              onPress={() => router.push('/gesture')} />
         </View>
     );
 }
