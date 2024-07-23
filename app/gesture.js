@@ -23,14 +23,14 @@ export default function gesture() {
     .onStart(event =>  setTopPos(topPos+25));
 
     return (
-        <GestureHandlerRootView>
+        
             <GestureDetector gesture={Gesture.Race(flingLeft,flingRight, flingUp, flingDown)}>
                 <View style={styles.container}>
                     <View style={{...styles.square, left: leftPos, top: topPos}}></View>
                 </View>
             </GestureDetector>
 
-        </GestureHandlerRootView>
+        
     );
 }
 
