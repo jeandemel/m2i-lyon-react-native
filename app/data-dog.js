@@ -9,6 +9,7 @@ export default function dataDog() {
     const [dogList, setDogList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
+    const [showFloating, setShowFloating] = useState(false);
     const list = useRef();
     /**
      * Le useEffect contient une fonction qui se lance au chargement du component puis
@@ -38,13 +39,13 @@ export default function dataDog() {
                 ...response.data
             ]);
             setIsLoading(false);
-        }catch(error) {
+        } catch (error) {
             alert(error);
         }
 
     }
 
-    function refreshHandle(){
+    function refreshHandle() {
         setPage(1);
         setDogList([]);
         fetchData();
@@ -53,15 +54,20 @@ export default function dataDog() {
         <SafeAreaView style={styles.container}>
             <Text>The Dog List, current page = {page}</Text>
             {/* <Button onPress={() => setPage(page + 1)} title="Next Page" /> */}
-            <Pressable onPress={() => list.scrollToIndex(0)} style={styles.floatingButton}>
-                <Text style={{color:'white'}}>⤊</Text>
-            </Pressable>
+            {showFloating &&
+                <Pressable onPress={() => list.current.scrollToIndex({ index: 0 })}
+                    style={styles.floatingButton}>
+                    <Text style={{ color: 'white' }}>⤊</Text>
+                </Pressable>
+            }
             <FlatList
                 ref={list}
                 style={{ width: '100%' }}
                 refreshing={isLoading}
                 onRefresh={refreshHandle}
-                onEndReached={() => setPage(page+1)}
+                onScrollEndDrag={(event) => event.nativeEvent.contentOffset.y > 50 && setShowFloating(true)}
+                onStartReached={() => setShowFloating(false)}
+                onEndReached={() => setPage(page + 1)}
                 // onEndReachedThreshold={3}
                 data={dogList}
                 keyExtractor={item => item.id}
@@ -79,13 +85,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     floatingButton: {
-        padding:20,
-        borderRadius:100,
+        padding: 20,
+        borderRadius: 100,
         backgroundColor: 'skyblue',
         fontSize: 20,
         fontWeight: 'bold',
         position: 'absolute',
         bottom: 10,
-        right: 10
+        right: 10,
+        zIndex: 10
     }
 })
