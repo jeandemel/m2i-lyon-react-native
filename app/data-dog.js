@@ -10,6 +10,7 @@ export default function dataDog() {
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [showFloating, setShowFloating] = useState(false);
+    const [selectedDogs, setSelectedDogs] = useState([]);
     const list = useRef();
     /**
      * Le useEffect contient une fonction qui se lance au chargement du component puis
@@ -50,6 +51,17 @@ export default function dataDog() {
         setDogList([]);
         fetchData();
     }
+
+    function select(dog) {
+        if(selectedDogs.includes(dog)) {
+            setSelectedDogs(selectedDogs.filter(item => dog != item))
+        } else {
+            setSelectedDogs([
+                ...selectedDogs,
+                dog
+            ]);
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Text>The Dog List, current page = {page}</Text>
@@ -72,7 +84,13 @@ export default function dataDog() {
                 data={dogList}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <ItemDog dog={item} />
+                    <Pressable 
+                        onLongPress={() => select(item)}
+                        onPress={() => selectedDogs.length > 0 && select(item)}
+                    >
+                        
+                        <ItemDog dog={item} isSelected={selectedDogs.includes(item)} />
+                    </Pressable>
                 )}
             />
         </SafeAreaView>

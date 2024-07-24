@@ -5,9 +5,9 @@ import { StyleSheet, Text, View } from "react-native";
  * Component représentant un chien dans une liste de chien
  * @param {Dog} dog Le chien à afficher
  */
-export default function ItemDog({dog}) {
+export default function ItemDog({dog, isSelected}) {
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container, backgroundColor:isSelected?'skyblue':'white'}}>
             <Text style={styles.title}>{dog.name}</Text>
             <Text style={styles.subTitle}>{dog.breed}</Text>
             <Text style={styles.detail}>{new Date(dog.birthdate).toLocaleDateString()}</Text>
