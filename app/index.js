@@ -21,6 +21,8 @@ export default function index() {
                 onPress={() => router.push('/data-dog')} />
 
             <View style={{width: '50%', marginTop: 50}}>
+                {/* Ici, on définit donc les fonctions qui seront déclenchés pour ce
+                Counter spécifique, selon l'event */}
                 <Counter
                     onBigNumberReached={() => console.log('wow this is doing numbers')}
                     onValueChange={(value) => console.log('counter value changed', value)} />
