@@ -1,5 +1,6 @@
 import { Link, router } from "expo-router";
 import { Button, Text, View } from "react-native";
+import Counter from "../components/Counter";
 
 
 
@@ -18,6 +19,12 @@ export default function index() {
                 onPress={() => router.push('/gesture')} />
             <Button title="Dog"
                 onPress={() => router.push('/data-dog')} />
+
+            <View style={{width: '50%', marginTop: 50}}>
+                <Counter
+                    onBigNumberReached={() => console.log('wow this is doing numbers')}
+                    onValueChange={(value) => console.log('counter value changed', value)} />
+            </View>
         </View>
     );
 }

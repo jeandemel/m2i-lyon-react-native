@@ -72,6 +72,7 @@ export default function dataDog() {
                 data={dogList}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
+                    
                     <ItemDog dog={item} />
                 )}
             />
