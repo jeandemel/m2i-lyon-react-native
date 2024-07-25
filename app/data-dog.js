@@ -118,3 +118,13 @@ const styles = StyleSheet.create({
         zIndex: 10
     }
 })
+/*
+CRUD sur une API Rest standard
+GET /api/dog
+GET /api/dog/:id
+POST /api/dog -- Attend un dog dans son body
+DELETE /api/dog/:id
+PATCH/PUT /api/dog/:id -- Attend un dog (ou un fragment de dog pour un PATCH) dans son body
+
+
+*/
