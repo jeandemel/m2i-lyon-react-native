@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text } from "react-native";
+import { Alert, FlatList, Pressable, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemDog from "../components/ItemDog";
 
@@ -65,6 +65,15 @@ export default function dataDog() {
             ]);
         }
     }
+
+    async function deleteSelected() {
+        for(const dog of selectedDogs) {
+            await axios.delete('https://bunny-relaxing-quickly.ngrok-free.app/api/dog/'+dog.id);
+        }
+        setDogList(dogList.filter(item => !selectedDogs.includes(item)));
+        setSelectedDogs([]);
+        Alert.alert('Dog Deleted'); //Petit feedback indiquant que l'opération a réussie
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Text>The Dog List, current page = {page}</Text>
@@ -73,6 +82,12 @@ export default function dataDog() {
                 <Pressable onPress={() => list.current.scrollToIndex({ index: 0 })}
                     style={styles.floatingButton}>
                     <Text style={{ color: 'white' }}>⤊</Text>
+                </Pressable>
+            }
+            {selectedDogs.length > 0 &&
+                <Pressable onPress={deleteSelected}
+                    style={styles.deleteButton}>
+                    <Text style={{ color: 'white' }}>X</Text>
                 </Pressable>
             }
             <FlatList
@@ -115,6 +130,17 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 10,
         right: 10,
+        zIndex: 10
+    },
+    deleteButton: {
+        padding: 20,
+        borderRadius: 100,
+        backgroundColor: 'red',
+        fontSize: 20,
+        fontWeight: 'bold',
+        position: 'absolute',
+        bottom: 10,
+        left: 10,
         zIndex: 10
     }
 })
