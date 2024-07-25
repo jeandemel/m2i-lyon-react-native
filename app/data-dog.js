@@ -1,23 +1,26 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Button, FlatList, Pressable, StyleSheet, Text } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemDog from "../components/ItemDog";
 
 
 export default function dataDog() {
     const [dogList, setDogList] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [showFloating, setShowFloating] = useState(false);
     const [selectedDogs, setSelectedDogs] = useState([]);
+    const [page, setPage] = useState(1);
+    
+    const [isLoading, setIsLoading] = useState(true);
+    const [showFloating, setShowFloating] = useState(false);
     const list = useRef();
     /**
      * Le useEffect contient une fonction qui se lance au chargement du component puis
      * à chaque fois que la ou les variables du tableau en deuxième arguments changent,
-     * si le tableau ne contient aucune variable, comme ici, alors le useEffect ne
+     * si le tableau ne contient aucune variable, alors le useEffect ne
      * se lancera qu'une fois et on s'en sert pour initialiser des choses, comme par exemple
-     * un appel serveur
+     * un appel serveur.
+     * Ici on lui dit de se relancer à chaque fois que la valeur de la variable page change
+     * de valeur (donc à chaque fois qu'on change de page, on refetch les data)
      */
     useEffect(() => {
 
@@ -77,6 +80,7 @@ export default function dataDog() {
                 style={{ width: '100%' }}
                 refreshing={isLoading}
                 onRefresh={refreshHandle}
+                // Les deux on suivant c'est juste pour afficher ou non le button back to top. Pas critique comme truc
                 onScrollEndDrag={(event) => event.nativeEvent.contentOffset.y > 50 && setShowFloating(true)}
                 onStartReached={() => setShowFloating(false)}
                 onEndReached={() => setPage(page + 1)}
