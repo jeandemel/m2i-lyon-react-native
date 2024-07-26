@@ -21,7 +21,17 @@ Son fonctionnement est très proche du routing de Next.js : chaque "page"/écran
 
 On peut définir un fichier [app/_layout.js](app/_layout.js) qui qui permettra de définir une interface/un layout commun entre les différentes pages d'un même dossier.
 
-## Data Fetching
+## Data Fetching [page](app/data-dog.js)
 La récupération des données ne diffère pas sensiblement par rapport à une application ReactJs classique. On l'effectue via une requête HTTP asynchrone (via fetch ou via une library type axios/tanstack/swr).
 
 Une particularité à prendre en compte pour fetch des datas d'un serveur local depuis une appli mobile est qu'il faudra mettre l'ip locale de notre PC en url de fetch si les deux sont sur le même réseaux. Si ce n'est pas le cas, il faudra passer par un service de tunneling type [ngrok](https://ngrok.com/) ou déployer notre backend d'une manière ou d'une autre.
+
+## Camera [page](app/camera.js)
+Dans ce component, on utilise le [expo-camera](https://docs.expo.dev/versions/latest/sdk/camera/) qui permet d'avoir un plein contrôle sur l'utilisation de l'appareil photo du device, ce qui sera surtout utile si on veut faire sa propre interface, placer la vue de l'appareil où et comme on veut etc.
+
+Pour une utilisation plus simple dans le cas où on souhaite juste récupérer une photo via l'appareil ou via la gallerie, utiliser plutôt le [expo-image-picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+
+## Animation [page](app/animation.js)
+Page dans laquelle on utilise la library [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) qui permet de créer des animations complexes et optimisées plus simplement qu'avec l'API par défaut de React Native.
+
+Cette library marche avec des `useSharedValue()` qui permette de créer des valeurs qui pourront directement être partager avec l'UI native du téléphone et assigner au styles des balises à animer, on utilise ensuite les fonctions d'animation (withSpring, withTiming, withRepeat, etc.) pour changer ces valeurs et créer des animations
