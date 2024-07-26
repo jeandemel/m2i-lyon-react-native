@@ -21,8 +21,10 @@ export default function index() {
                 onPress={() => router.push('/data-dog')} />
             <Button title="Animation"
                 onPress={() => router.push('/animation')} />
-                <Button title="Game"
-                    onPress={() => router.push('/game')} />
+            <Button title="Game"
+                onPress={() => router.push('/game')} />
+            <Button title="Camera"
+                onPress={() => router.push('/camera')} />
 
             <View style={{ width: '50%', marginTop: 50 }}>
                 {/* Ici, on définit donc les fonctions qui seront déclenchés pour ce
